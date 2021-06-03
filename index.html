@@ -3,9 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testwebsite</title>
+    <title>Form</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
-    <h1>HELLO WORLD</h1>
+    <form id=f style="margin: 20px;">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="mobile" placeholder="Mobile">
+        <input type="email" name="email" placeholder="Email">
+        <input type="text" name="address" placeholder="Address">
+        <input type="date" name="date" placeholder="Date">
+    </form>
+    <button class="btn center" type="submit" style="margin-left:40%" onclick="call()">Submit</button>
+
 </body>
+<script>
+    v = document.getElementById('f')
+    options = {method:'POST',headers:{'Content-Type':"application/json"},body:null}
+
+    function call(){
+        json = {}
+        for (const i of v) {
+            json[i.name] = i.value
+        }
+        console.log(json)
+        options.body = JSON.stringify(json)
+        fetch('https://test.vket.in/api/form',options)
+        M.toast({html: 'From Submitted'})
+        v.reset()
+    }
+</script>
 </html>
